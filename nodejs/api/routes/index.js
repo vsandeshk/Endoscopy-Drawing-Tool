@@ -13,7 +13,14 @@ router
 router
   .route('/image/getAll')
   .get(function(req, res) {
-    ctrlUsers.authenticateToken(req, res, ctrlImages.getAll);
+    ctrlImages.getAllPublic(req, res);
+//    ctrlUsers.authenticateToken(req, res, ctrlImages.getAll);
+  });
+
+router
+  .route('/image/getAll/public')
+  .get(function(req, res) {
+    ctrlUsers.authenticateToken(req, res, ctrlImages.getAllPublic);
   });
 
 router

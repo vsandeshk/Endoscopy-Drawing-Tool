@@ -10,7 +10,7 @@ var storage = multer.diskStorage({
   filename: function(req, file, cb) {
     console.log(file);
     var tempArr = file.originalname.split('.');
-    var fileExt = tempArr[tempArr.length-1];
+    var fileExt = tempArr[tempArr.length - 1];
     var imageName = 'image-' + req.user.username + "-" + Date.now() + "." + fileExt;
     var imagePath = imageDir + imageName;
     req.imagePath = imagePath;
@@ -29,13 +29,29 @@ module.exports.getAll = function(req, res) {
   var collection = db.collection(collectionName);
 
   collection
-    .find({username: req.user.username})
+    .find({
+      username: req.user.username
+    })
     .toArray(function(err, docs) {
       res
         .status(200)
         .json(docs);
     });
+};
 
+module.exports.getAllPublic = function(req, res) {
+
+  var db = dbconn.get();
+
+  var collection = db.collection(collectionName);
+
+  collection
+    .find()
+    .toArray(function(err, docs) {
+      res
+        .status(200)
+        .json(docs);
+    });
 };
 
 module.exports.getOne = function(req, res) {
@@ -92,7 +108,9 @@ module.exports.deleteAll = function(req, res) {
 
   var collection = db.collection(collectionName);
 
-  collection.deleteMany({username: req.user.username}, function(err, obj) {
+  collection.deleteMany({
+    username: req.user.username
+  }, function(err, obj) {
     if (err) throw err;
     res.status(200).json(obj.result.n + " document(s) deleted");
   });

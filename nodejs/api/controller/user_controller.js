@@ -10,10 +10,6 @@ module.exports.getAll = function(req, res) {
 
   var db = dbconn.get();
 
-  // console.log("db", db);
-
-  console.log('GET the users');
-
   var offset = 0;
   var count = 5;
 
