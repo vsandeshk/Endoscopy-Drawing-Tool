@@ -11,16 +11,23 @@ router
   });
 
 router
-  .route('/image/getAll')
+  .route('/image/getAll/public')
   .get(function(req, res) {
     ctrlImages.getAllPublic(req, res);
 //    ctrlUsers.authenticateToken(req, res, ctrlImages.getAll);
   });
 
 router
-  .route('/image/getAll/public')
+  .route('/image/update')
+  .post(function(req, res) {
+    req.updateImage = true;
+    ctrlUsers.authenticateToken(req, res, ctrlImages.updateImage);
+  });
+
+router
+  .route('/image/getAll')
   .get(function(req, res) {
-    ctrlUsers.authenticateToken(req, res, ctrlImages.getAllPublic);
+    ctrlUsers.authenticateToken(req, res, ctrlImages.getAll);
   });
 
 router

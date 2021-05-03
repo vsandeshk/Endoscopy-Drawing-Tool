@@ -11,9 +11,17 @@ var storage = multer.diskStorage({
     console.log(file);
     var tempArr = file.originalname.split('.');
     var fileExt = tempArr[tempArr.length - 1];
-    var imageName = 'image-' + req.user.username + "-" + Date.now() + "." + fileExt;
-    var imagePath = imageDir + imageName;
-    req.imagePath = imagePath;
+    var imageName = '';
+    if (req.updateImage) {
+      var imageId = req.body.imagePath;
+      console.log(imageId);
+      imageName = imageId.split("endoscopy/")[1];
+    } else {
+      imageName = 'image-' + req.user.username + "-" + Date.now() + "." + fileExt;
+      var imagePath = imageDir + imageName;
+      req.imagePath = imagePath;
+    }
+    console.log(imageName);
     cb(null, imageName);
   }
 })
@@ -27,7 +35,7 @@ module.exports.getAll = function(req, res) {
   var db = dbconn.get();
 
   var collection = db.collection(collectionName);
-
+  console.log(req.user);
   collection
     .find({
       username: req.user.username
@@ -46,7 +54,9 @@ module.exports.getAllPublic = function(req, res) {
   var collection = db.collection(collectionName);
 
   collection
-    .find()
+    .find({
+      imageType: "Public"
+    })
     .toArray(function(err, docs) {
       res
         .status(200)
@@ -70,6 +80,15 @@ module.exports.getOne = function(req, res) {
       res
         .sendStatus(404)
     }
+  });
+};
+
+module.exports.updateImage = function(req, res) {
+  upload(req, res, (err) => {
+    if (err) {
+      return res.status(400).json(err);
+    }
+    return res.status(200).json("Image Updated!");
   });
 };
 
