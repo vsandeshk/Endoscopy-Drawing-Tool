@@ -1,0 +1,47 @@
+<main class="main d-flex align-items-center">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12 mx-auto">
+                <div class="card-group">
+                    <div class="card p-6">
+                        <class class="card-body">
+                            <form (submit)="uploadImage($event)">
+                                <h1>Upload Your Image Here : </h1>
+
+                                <br>
+
+
+
+
+                                <input type="file" id="endoscopyImage" name="img" accept="image/*" class="form-control"
+                                    required style="margin:6px;">
+
+                                    <br>
+
+                                <select name="cars" id="imagetype" class="col-2" style="margin: 6px;" required>
+                                    <option value="Private">Private</option>
+                                    <option value="Public">Public</option>
+
+                                </select>
+
+
+                                <br>
+
+
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary px-4 " style="margin: 6px;"
+                                            value="Submit">Submit</button>
+                                    </div>
+                                    <br>
+
+                                </div>
+                            </form>
+                        </class>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

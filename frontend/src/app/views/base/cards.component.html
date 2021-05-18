@@ -1,0 +1,30 @@
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    .column {
+        float: left;
+        width: 33.33%;
+        padding: 5px;
+    }
+
+    /* Clearfix (clear floats) */
+    .row::after {
+        content: "";
+        clear: both;
+        display: table;
+    }
+</style>
+
+
+<div class="row">
+    <div class="column" *ngFor="let image of images let i=index">
+        <button (click)="myFunction('http://localhost:3000/'+image.imagePath.replace('public/',''))"><img
+                src="{{'http://localhost:3000/'+image.imagePath.replace('public/','')}}" alt=""
+                style="width:100%; height:400px;padding:5px;"></button>
+    </div>
+</div>
+
+
+<!--/.row-->
